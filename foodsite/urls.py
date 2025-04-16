@@ -24,9 +24,11 @@ from django.contrib.auth.views import LogoutView
 from django.conf import settings
 from django.conf.urls.static import static
 from users.forms import UserLoginForm
+from django.views.generic import RedirectView
 
 
 urlpatterns = [
+    path('', RedirectView.as_view(pattern_name='food:index'), name='home'),  # Redirect root to food index
     path("admin/", admin.site.urls),
     path("food/", include("food.urls")),
     path('register/', user_views.register, name='register'),
@@ -43,4 +45,7 @@ urlpatterns = [
 
 # Add media URL patterns correctly
 if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+else:
+    # In production, configure whitenoise to handle media files too
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
