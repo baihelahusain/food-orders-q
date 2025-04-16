@@ -1,0 +1,95 @@
+{% extends 'food/base.html' %}
+
+{% block body %}
+<div class="container">
+    <h2 class="mb-4">Checkout</h2>
+    
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Order Summary</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for cart_item in cart_items %}
+                                <tr>
+                                    <td>
+                                        <img src="{{ cart_item.item.Item_img }}" alt="{{ cart_item.item.Item_name }}" class="img-thumbnail me-2" style="width: 50px; height: 50px; object-fit: cover;">
+                                        {{ cart_item.item.Item_name }}
+                                    </td>
+                                    <td>{{ cart_item.quantity }}</td>
+                                    <td>₹{{ cart_item.item.Item_price }}</td>
+                                    <td>₹{{ cart_item.total_price }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="3" class="text-end fw-bold">Order Total:</td>
+                                    <td class="fw-bold">₹{{ total }}</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">Delivery Information</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Name</label>
+                            <p class="form-control-plaintext">{{ user.get_full_name|default:user.username }}</p>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <p class="form-control-plaintext">{{ user.email }}</p>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Delivery Address</label>
+                            <textarea class="form-control" id="address" name="address" rows="3" required>{{ user.profile.location }}</textarea>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="payment" class="form-label">Payment Method</label>
+                            <select class="form-select" id="payment" name="payment_method" required>
+                                <option value="cod">Cash on Delivery</option>
+                                <option value="online">Online Payment</option>
+                            </select>
+                        </div>
+                        
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-check-circle me-2"></i>Place Order
+                            </button>
+                            <a href="{% url 'food:view_cart' %}" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left me-2"></i>Back to Cart
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
