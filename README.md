@@ -18,7 +18,7 @@ This project was developed during an internship at Prepway Solutions Pvt Ltd. Fo
 ## Technologies Used
 
 - **Backend:** Django (Python web framework)
-- **Database:** PostgreSQL
+- **Database:** PostgreSQL(Render)
 - **Frontend:** HTML, CSS, JavaScript, Bootstrap
 - **Deployment:** Gunicorn, WhiteNoise
 - **Version Control:** Git
@@ -58,7 +58,7 @@ This project was developed during an internship at Prepway Solutions Pvt Ltd. Fo
    python manage.py runserver
    ```
 
-7. Access the application at `http://127.0.0.1:8000/`
+7. Access the application at `http://127.0.0.1:8000/food/`
 
 ## Deployment
 
@@ -87,6 +87,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ---
 
-## Link: https://food-orders-q.onrender.com/food/
+### Link: https://food-orders-q.onrender.com/food/
 
 © 2025 Food Orders Q. Created by Baihela Hussain. All rights reserved.
